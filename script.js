@@ -13,8 +13,9 @@ const  generateBtn = document.querySelector('.generateBtn');
 const  allCheckBox = document.querySelectorAll('input[type=checkbox]');
 const symbols = '~@#$%^&*()_{+=|:}"?/';
 let password = "";
-let passwordLength=10;
-let checkCount =1;
+let passwordLength = 10;
+let checkCount = 1;
+handleSlider(); 
 //ste strength circle color to grey 
  
 //set password length
@@ -27,13 +28,13 @@ function handleSlider() {
 
 
 function setIndicator(color) {
-    indicator.computedStyleMap.backgroundColor = color;
+    indicator.style.backgroundColor = color;
     //shadow  document.getElementById("foo").style["boxShadow"] = "0 0 5px #999999";
 }
 
 // get random integer
 function getRndInteger(){
-    return Math.floors(Math.random() * [max - min] ) + min ;
+    return Math.floors(Math.random() * (max - min)) + min ;
 }
 
 function generateRandomNumber() {
@@ -97,18 +98,28 @@ async function copyContent() {
   }
 
 function handleCheckBoxChange() {
-    
+    checkCount = 0;
+    allCheckBox.forEach( (checkbox) => {
+        if(checkbox.checked)
+        checkCount++;
+    });
+
+    //special condition
+    if(passwordLength < checkCount){
+        passwordLength = checkCount;
+        handleSlider();
+    }
 }
 
 allCheckBox.forEach((checkbox) => {
-    checkBox.addEventListener('change', handleCheckBoxChange);
+    checkbox.addEventListener('change', handleCheckBoxChange);
 })
 
 
 inputSlider.addEventListener('input',(e) => {
-    passwordLength.e.target.value;
+    passwordLength = e.target.value;
     handleSlider();
-
+ 
 }) 
 
 copyBtn.addEventListener('click' , () => {
